@@ -1,0 +1,16 @@
+{
+  "name": "taco-slackbot",
+  "version": "1.0.0",
+  "description": "Fernando, the taco slack bot!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Julien Gilli <jgilli@fastmail.fm>",
+  "license": "ISC",
+  "dependencies": {
+    "assert-plus": "^0.1.5",
+    "slack-client": "^1.4.1"
+  }
+}
