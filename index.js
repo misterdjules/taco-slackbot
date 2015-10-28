@@ -23,7 +23,7 @@ slack.on('message', function (message) {
     var channel;
     var wotdReq;
 
-    if (message.text && message.text.includes('wotd')) {
+    if (message.text && /wotd/i.test(message.text)) {
         channel = slack.getChannelGroupOrDMByID(message.channel);
         wotdReq = http.get(`http://${TACODAY_API_ADDR}:8080/wotd`, function onWotdRes(res) {
             var wotd = '';
