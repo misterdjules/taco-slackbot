@@ -32,7 +32,7 @@ slack.on('message', function (message) {
             });
 
             res.on('end', function onEnd() {
-                channel.send('Si senor! The word of the day is ' + wotd + '!');
+                channel.send('Si señor! The word of the day is ' + wotd + '!');
             });
         });
 
