@@ -37,7 +37,7 @@ slack.on('message', function (message) {
         });
 
         wotdReq.on('error', function onError(err) {
-            channel.send('Sorry senor, I couldn\'t get the word of the day this time!');
+            channel.send('Sorry señor, I couldn\'t get the word of the day this time!');
         });
     }
 });
