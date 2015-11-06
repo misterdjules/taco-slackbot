@@ -19,13 +19,14 @@ slack.on('open', function onOpen() {
     console.log(`Connected to ${slack.team.name} as ${slack.self.name}`);
 });
 
-slack.on('message', function (message) {
+slack.on('message', function onMessage(message) {
     var channel;
     var wotdReq;
+    var wotdApiEndpoint = `http://${TACODAY_API_ADDR}:8080/wotd`;
 
     if (message.text && /wotd/i.test(message.text)) {
-        channel = slack.getChannelGroupOrDMByID(message.channel);
-        wotdReq = http.get(`http://${TACODAY_API_ADDR}:8080/wotd`, function onWotdRes(res) {
+        channel = slack.getChannelGroupOrDMByID(message.channel);        
+        wotdReq = http.get(wotdApiEndpoint, function onWotdRes(res) {
             var wotd = '';
             res.on('data', function onData(data) {
                 wotd += data.toString();
@@ -37,12 +38,14 @@ slack.on('message', function (message) {
         });
 
         wotdReq.on('error', function onError(err) {
-            channel.send('Sorry señor, I couldn\'t get the word of the day this time!');
+            console.log('error:', err);
+            channel.send('Sorry señor, I couldn\'t get the word of the day ' +
+            'this time!');
         });
     }
 });
 
-slack.on('error', function (err) {
+slack.on('error', function onError(err) {
     console.error("Error", err);
 })
 
