@@ -6,7 +6,8 @@ const Slack = require('slack-client');
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 assert.string(SLACK_TOKEN, 'The SLACK_TOKEN environment variable must be set');
 
-const TACODAY_API_ADDR = process.env.TACODAY_API_PORT_8080_TCP_ADDR;
+const TACODAY_API_ADDR = process.env.TACODAY_API_PORT_8080_TCP_ADDR ||
+    'localhost';
 assert.string(TACODAY_API_ADDR,
     'The TACODAY_API_PORT_8080_TCP_ADDR environment variable must be set');
 
