@@ -29,13 +29,21 @@ slack.on('message', function onMessage(message) {
         channel = slack.getChannelGroupOrDMByID(message.channel);        
         wotdReq = http.get(wotdApiEndpoint, function onWotdRes(res) {
             var wotd = '';
-            res.on('data', function onData(data) {
-                wotd += data.toString();
-            });
 
-            res.on('end', function onEnd() {
-                channel.send('Si señor! The word of the day is ' + wotd + '!');
-            });
+            if (res.statusCode === 200) {
+                res.on('data', function onData(data) {
+                    wotd += data.toString();
+                });
+
+                res.on('end', function onEnd() {
+                    channel.send('Si señor! The word of the day is ' + wotd +
+                        '!');
+                });
+            } else {
+                channel.send('Sorry señor, I couldn\'t get the word of the ' +
+                    'day  this time!');
+                return;
+            }
         });
 
         wotdReq.on('error', function onError(err) {
