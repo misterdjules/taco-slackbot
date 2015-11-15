@@ -6,10 +6,22 @@ const Slack = require('slack-client');
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 assert.string(SLACK_TOKEN, 'The SLACK_TOKEN environment variable must be set');
 
-const TACODAY_API_ADDR = process.env.TACODAY_API_PORT_8080_TCP_ADDR ||
-    'localhost';
-assert.string(TACODAY_API_ADDR,
-    'The TACODAY_API_PORT_8080_TCP_ADDR environment variable must be set');
+// 'tacoday-api' is the hostname setup by docker links in the /etc/hosts
+// file of the running container. It points to the tacoday API server if
+// the container is linked to a tacoday API server.
+// When not running as a linked container, one can specify the hostname
+// of the tacoday API server with the TACODAY_API_HOST environment variable.
+const TACODAY_API_HOST = process.env.TACODAY_API_HOST || 'tacoday-api';
+assert.string(TACODAY_API_HOST, 'TACODAY_API_HOST must be a string');
+
+// TACODAY_API_PORT_8080_TCP_PORT is the name of the environment variable
+// set by docker when linking this container to the tacoday-api container.
+// If this variable is not present, default to a TACODAY_API_PORT environment
+// variable that may have been specified when starting the program, otherwise
+// hardcode it to a default static value.
+const TACODAY_API_PORT = process.env.TACODAY_API_PORT_8080_TCP_PORT ||
+    process.env.TACODAY_API_PORT || 8080;
+assert.number(TACODAY_API_PORT, 'TACODAY_API_PORT must be a number');
 
 const autoReconnect = true;
 const autoMark = true;
@@ -23,7 +35,8 @@ slack.on('open', function onOpen() {
 slack.on('message', function onMessage(message) {
     var channel;
     var wotdReq;
-    var wotdApiEndpoint = `http://${TACODAY_API_ADDR}:8080/wotd`;
+    var wotdApiEndpoint =
+        `http://${TACODAY_API_HOST}:${TACODAY_API_PORT}/wotd`;
 
     if (message.text && /wotd/i.test(message.text)) {
         channel = slack.getChannelGroupOrDMByID(message.channel);        
