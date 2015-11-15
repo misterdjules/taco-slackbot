@@ -1,17 +1,17 @@
-const assert = require('assert-plus');
 const http = require('http');
 
+const assert = require('assert-plus');
 const Slack = require('slack-client');
 
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 assert.string(SLACK_TOKEN, 'The SLACK_TOKEN environment variable must be set');
 
-// 'tacoday-api' is the hostname setup by docker links in the /etc/hosts
+// 'tacoday_api' is the hostname setup by docker links in the /etc/hosts
 // file of the running container. It points to the tacoday API server if
 // the container is linked to a tacoday API server.
 // When not running as a linked container, one can specify the hostname
 // of the tacoday API server with the TACODAY_API_HOST environment variable.
-const TACODAY_API_HOST = process.env.TACODAY_API_HOST || 'tacoday-api';
+const TACODAY_API_HOST = process.env.TACODAY_API_HOST || 'tacoday_api';
 assert.string(TACODAY_API_HOST, 'TACODAY_API_HOST must be a string');
 
 // TACODAY_API_PORT_8080_TCP_PORT is the name of the environment variable
