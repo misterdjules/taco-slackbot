@@ -19,8 +19,8 @@ assert.string(TACODAY_API_HOST, 'TACODAY_API_HOST must be a string');
 // If this variable is not present, default to a TACODAY_API_PORT environment
 // variable that may have been specified when starting the program, otherwise
 // hardcode it to a default static value.
-const TACODAY_API_PORT = process.env.TACODAY_API_PORT_8080_TCP_PORT ||
-    process.env.TACODAY_API_PORT || 8080;
+const TACODAY_API_PORT = Number(process.env.TACODAY_API_PORT_8080_TCP_PORT) ||
+    Number(process.env.TACODAY_API_PORT) || 8080;
 assert.number(TACODAY_API_PORT, 'TACODAY_API_PORT must be a number');
 
 const autoReconnect = true;
