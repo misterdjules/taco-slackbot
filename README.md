@@ -2,16 +2,22 @@
 
 ![screenshot of taco-slackbot](screenshots/wotd.png)
 
-taco-slackbot is a [Slack](https://slack.com) bot that connects to a
-[tacoday-api](https://github.com/misterdjules/tacoday-api)
-server instance and responds to one command that gives the "word of the day"
-that can be used at a local tacos restaurant in Vancouver to get special
-deals.
+taco-slackbot is a [Slack](https://slack.com) bot that connects to a [tacoday-
+api](https://github.com/misterdjules/tacoday-api) server instance and responds
+to one command that gives the "word of the day" that can be used to get
+special deals at [La Taqueria](facebook.com/LaTaqueria), a tacos restaurant in
+Vancouver.
 
 It was made as a toy project to experiment with
 [Triton](https://www.joyent.com), [Docker](https://www.docker.com), [HashiCorp
 Vault](https://www.vaultproject.io) and other technologies that are related to
 using containers to deploy software.
+
+## Usage
+
+Simply enter the string `wotd` in a Slack chat room where this bot is
+connected, and it will respond with the "Word of the day" from [La
+Taqueria](facebook.com/LaTaqueria).
 
 ## How to run taco-slackbot?
 
